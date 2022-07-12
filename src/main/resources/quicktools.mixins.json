@@ -1,12 +1,15 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.fabricmc.example.mixin",
+  "package": "dev.bithole.quicktools.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "LocalMobCapCalculatorAccessor",
+    "MobCountsAccessor",
+    "SpawnStateAccessor"
   ],
   "client": [
-    "ExampleMixin"
+
   ],
   "injectors": {
     "defaultRequire": 1
