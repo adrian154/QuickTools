@@ -13,7 +13,8 @@
   "icon": "assets/quicktools/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": ["dev.bithole.quicktools.QuickTools"]
+    "main": ["dev.bithole.quicktools.QuickTools"],
+    "client": ["dev.bithole.quicktools.QuickToolsClient"]
   },
   "mixins": ["quicktools.mixins.json"],
   "accessWidener": "quicktools.accesswidener",

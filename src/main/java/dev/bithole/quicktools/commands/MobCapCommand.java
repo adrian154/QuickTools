@@ -1,6 +1,7 @@
 package dev.bithole.quicktools.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.tree.CommandNode;
 import dev.bithole.quicktools.mixin.LocalMobCapCalculatorAccessor;
 import dev.bithole.quicktools.mixin.MobCountsAccessor;
 import dev.bithole.quicktools.mixin.SpawnStateAccessor;
@@ -18,10 +19,11 @@ import net.minecraft.world.level.NaturalSpawner;
 public class MobCapCommand {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(Commands.literal("mc")
+         CommandNode<CommandSourceStack> mobcapCommand = dispatcher.register(Commands.literal("mobcap")
                 .executes(ctx -> showMobCaps(ctx.getSource()))
                 .then(Commands.argument("player", EntityArgument.player())
                         .executes(ctx -> showMobCaps(ctx.getSource(), EntityArgument.getPlayer(ctx, "player")))));
+         dispatcher.register(Commands.literal("mc").redirect(mobcapCommand));
     }
 
     private static void writeList(CommandSourceStack source, Object2IntMap<MobCategory> list, int spawnableChunks, boolean local) {

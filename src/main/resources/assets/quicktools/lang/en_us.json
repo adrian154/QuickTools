@@ -1,0 +1,4 @@
+{
+  "commands.ping.noInfo": "No data was found for player %s",
+  "commands.ping.result": "%s has a ping of "
+}
