@@ -4,12 +4,17 @@
   "package": "dev.bithole.quicktools.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BooleanValueInvoker",
+    "ExplosionMixin",
+    "GameRulesInvoker",
     "LocalMobCapCalculatorAccessor",
+    "MinecraftServerMixin",
     "MobCountsAccessor",
     "SpawnStateAccessor"
   ],
   "client": [
-
+    "MinecraftAccessor",
+    "TimerAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

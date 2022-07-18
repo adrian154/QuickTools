@@ -14,7 +14,7 @@ public class TPSCommand {
     private static final DecimalFormat numFormat = new DecimalFormat("#.#");
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(Commands.literal("tps").executes(TPSCommand::showTPS));
+        dispatcher.register(Commands.literal("tps").requires(source -> source.hasPermission(1)).executes(TPSCommand::showTPS));
     }
 
     private static int showTPS(CommandContext<CommandSourceStack> ctx) {

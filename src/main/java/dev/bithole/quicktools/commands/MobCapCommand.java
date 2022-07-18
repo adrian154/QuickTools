@@ -20,7 +20,8 @@ public class MobCapCommand {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
          CommandNode<CommandSourceStack> mobcapCommand = dispatcher.register(Commands.literal("mobcap")
-                .executes(ctx -> showMobCaps(ctx.getSource()))
+                 .requires(source -> source.hasPermission(1))
+                 .executes(ctx -> showMobCaps(ctx.getSource()))
                 .then(Commands.argument("player", EntityArgument.player())
                         .executes(ctx -> showMobCaps(ctx.getSource(), EntityArgument.getPlayer(ctx, "player")))));
          dispatcher.register(Commands.literal("mc").redirect(mobcapCommand));
