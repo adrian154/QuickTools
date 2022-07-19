@@ -21,7 +21,26 @@ public class TickCommand {
                 .then(Commands.literal("warp")
                         .executes(ctx -> tickWarp(ctx.getSource(), 0))
                         .then(Commands.argument("duration", IntegerArgumentType.integer(1))
-                                .executes(ctx -> tickWarp(ctx.getSource(), IntegerArgumentType.getInteger(ctx, "duration"))))));
+                                .executes(ctx -> tickWarp(ctx.getSource(), IntegerArgumentType.getInteger(ctx, "duration")))))
+                .then(Commands.literal("freeze")
+                        .executes(ctx -> toggleTick(ctx.getSource())))
+                .then(Commands.literal("step")
+                        .executes(ctx -> stepTick(ctx.getSource()))));
+    }
+
+    private static int stepTick(CommandSourceStack source) {
+        QuickTools.getInstance().getTickrateManager().setStepTick();
+        source.sendSuccess(Component.literal("Ticked server once"), true);
+        return 0;
+    }
+
+    private static int toggleTick(CommandSourceStack source) {
+        if(QuickTools.getInstance().getTickrateManager().toggleTicking()) {
+            source.sendSuccess(Component.literal("Unpaused the server"), true);
+        } else {
+            source.sendSuccess(Component.literal("Paused the server"), true);
+        }
+        return 0;
     }
 
     private static int setTickRate(CommandSourceStack source, int tickRate) {
@@ -36,8 +55,9 @@ public class TickCommand {
 
         if(tickrateManager.shouldTickWarp()) {
             if(duration == 0) {
+                int ticks = tickrateManager.getElapsedWarpTicks();
                 tickrateManager.setTickWarpRemainingTicks(0);
-                source.sendSuccess(Component.literal("Stopped the tick warp after " + tickrateManager.getElapsedWarpTicks() + " ticks"), true);
+                source.sendSuccess(Component.literal("Stopped the tick warp after " + ticks + " ticks"), true);
             } else {
                 source.sendFailure(Component.literal("A tick warp is already running"));
             }

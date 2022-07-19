@@ -10,6 +10,8 @@ public class TickrateManager {
     private float serverMsPerTick;
     private int tickWarpRemainingTicks = 0;
     private int elapsedWarpTicks = 0;
+    private boolean ticking = true;
+    private boolean stepTick = false;
 
     public TickrateManager() {
         this.setClientTickrate(20);
@@ -22,12 +24,12 @@ public class TickrateManager {
 
     public void setClientTickrate(int tickrate) {
         if(timer != null) {
-            ((TimerAccessor)timer).setMsPerTick(1000 / tickrate);
+            ((TimerAccessor)timer).setMsPerTick(1000F / tickrate);
         }
     }
 
     public void setServerTickrate(int tickrate) {
-        serverMsPerTick = 1000 / tickrate;
+        serverMsPerTick = 1000F / tickrate;
     }
 
     public float getServerMsPerTick() {
@@ -52,6 +54,27 @@ public class TickrateManager {
             tickWarpRemainingTicks--;
             elapsedWarpTicks++;
         }
+    }
+
+    public boolean shouldTick() {
+        return ticking;
+    }
+
+    public boolean toggleTicking() {
+        this.ticking = !this.ticking;
+        return this.ticking;
+    }
+
+    public void setStepTick() {
+        this.stepTick = true;
+    }
+
+    public boolean shouldStepTick() {
+        if(this.stepTick) {
+            this.stepTick = false;
+            return true;
+        }
+        return false;
     }
 
 }
